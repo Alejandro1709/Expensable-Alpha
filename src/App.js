@@ -1,9 +1,13 @@
+import Container from './components/Container';
 import Wrapper from './components/Wrapper';
 
 function App() {
   return (
     <Wrapper>
-      <h1>Hello</h1>
+      <Container>
+        <aside className='sidebar'>Sidebar</aside>
+        <main className='main'>Main</main>
+      </Container>
     </Wrapper>
   );
 }
