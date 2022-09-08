@@ -1,11 +1,12 @@
 import Container from './components/Container';
+import Sidebar from './components/Sidebar';
 import Wrapper from './components/Wrapper';
 
 function App() {
   return (
     <Wrapper>
       <Container>
-        <aside className='sidebar'>Sidebar</aside>
+        <Sidebar />
         <main className='main'>Main</main>
       </Container>
     </Wrapper>
