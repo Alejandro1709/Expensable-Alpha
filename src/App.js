@@ -1,8 +1,15 @@
+import Container from './components/Container';
+import Sidebar from './components/Sidebar';
+import Wrapper from './components/Wrapper';
+
 function App() {
   return (
-    <div className='App'>
-      <h1>Hello</h1>
-    </div>
+    <Wrapper>
+      <Container>
+        <Sidebar />
+        <main className='main'>Main</main>
+      </Container>
+    </Wrapper>
   );
 }
 
