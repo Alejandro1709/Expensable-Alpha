@@ -20,11 +20,19 @@ const StyledAnchor = styled.div`
   &:focus {
     outline: 1px solid ${colors.pink[500]};
   }
+
+  @media screen and (max-width: 568px) {
+    border-radius: 0;
+  }
 `;
 
 const StyledLink = styled(NavLink)`
   text-decoration: none;
   border-radius: 0.375rem;
+
+  @media screen and (max-width: 568px) {
+    border-radius: 0;
+  }
 `;
 
 function SidebarNavItem({ name, icon, ...rest }) {
