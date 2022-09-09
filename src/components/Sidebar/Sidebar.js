@@ -1,15 +1,12 @@
 import React from 'react';
 import { ReactComponent as Logo } from '../../images/logo.svg';
-import { BiCategoryAlt } from 'react-icons/bi';
-import { BsReceiptCutoff } from 'react-icons/bs';
-import { GiTargeted } from 'react-icons/gi';
 import { colors } from '../../styles/colors';
 import styled from '@emotion/styled';
+import Link from './Link';
 
 const StyledSidebar = styled.aside`
   display: flex;
   flex-direction: column;
-  /* height: 181px; */
   width: 100%;
   background-color: ${colors.gray[100]};
 
@@ -48,29 +45,6 @@ const StyledList = styled.ul`
   }
 `;
 
-const StyledItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: ${colors.pink[400]};
-  padding: 8px 12px;
-  color: white;
-  width: 100%;
-  cursor: pointer;
-
-  @media screen and (min-width: 840px) {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: ${colors.pink[400]};
-    padding: 8px 12px;
-    color: white;
-    width: 100%;
-    cursor: pointer;
-    border-radius: 6px;
-  }
-`;
-
 const StyledFooter = styled.footer`
   display: none;
 
@@ -85,25 +59,16 @@ const StyledFooter = styled.footer`
   }
 `;
 
-function Sidebar() {
+function Sidebar({ navigation }) {
   return (
     <StyledSidebar className='sidebar'>
       <SidebarHeader className='sidebar__header'>
         <Logo />
       </SidebarHeader>
       <StyledList className='sidebar__list'>
-        <StyledItem className='sidebar__list-item'>
-          <BiCategoryAlt />
-          Categories
-        </StyledItem>
-        <StyledItem className='sidebar__list-item'>
-          <BsReceiptCutoff />
-          Transactions
-        </StyledItem>
-        <StyledItem className='sidebar__list-item'>
-          <GiTargeted />
-          Budgets
-        </StyledItem>
+        {navigation.map((nav) => (
+          <Link key={nav.id} nav={nav} />
+        ))}
       </StyledList>
       <StyledFooter className='sidebar__footer'>
         <div className='sidebar__footer-item'>
