@@ -13,7 +13,7 @@ const StyledNav = styled.div`
   border-right: 1px solid #eee;
 `;
 function SidebarNav({ initialNavigation }) {
-  const [navigation, setNavigation] = useState(initialNavigation);
+  const [navigation] = useState(initialNavigation);
 
   return (
     <StyledNav>
