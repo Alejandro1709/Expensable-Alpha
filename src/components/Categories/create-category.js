@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import {
   AiOutlineClose,
   AiOutlinePlus,
@@ -16,6 +16,7 @@ import Button from '../Button/button';
 import styled from '@emotion/styled';
 import ColorList from '../ColorList/color-list';
 import IconList from '../IconList/icon-list';
+import apiFetch from '../../services/api-fetch';
 
 const StyledButton = styled.button`
   display: flex;
@@ -73,7 +74,12 @@ const StyledInput = styled.input`
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
 `;
 
-function CreateCategory({ showCatModal, isModalOpen }) {
+function CreateCategory({
+  showCatModal,
+  isModalOpen,
+  onAddCatrgory,
+  categories,
+}) {
   const pallete = [
     { color: '#EF4444', name: 'red' },
     { color: '#F97316', name: 'orange' },
@@ -87,14 +93,40 @@ function CreateCategory({ showCatModal, isModalOpen }) {
 
   const icons = [
     { Icon: AiFillBank, name: 'bank' },
-    { Icon: HiShoppingCart, name: 'shopping' },
+    { Icon: HiShoppingCart, name: 'cart' },
     { Icon: ImAidKit, name: 'health' },
-    { Icon: FaGamepad, name: 'games' },
-    { Icon: IoNewspaperOutline, name: 'notes' },
-    { Icon: IoSchoolSharp, name: 'school' },
-    { Icon: AiFillCar, name: 'travel' },
+    { Icon: FaGamepad, name: 'game' },
+    { Icon: IoNewspaperOutline, name: 'bill' },
+    { Icon: IoSchoolSharp, name: 'education' },
+    { Icon: AiFillCar, name: 'car' },
     { Icon: AiFillGift, name: 'gift' },
   ];
+
+  const [name, setName] = useState('');
+  const [color, setColor] = useState('');
+  const [icon, setIcon] = useState('');
+
+  const handleAddCategory = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      name,
+      color,
+      icon,
+      transaction_type: 'expense',
+    };
+
+    console.log(data);
+
+    apiFetch(`categories`, {
+      body: data,
+    }).then((cat) => {
+      console.log(cat);
+      const newCat = [...categories, cat];
+      onAddCatrgory(newCat);
+      showCatModal();
+    });
+  };
 
   return (
     <Fragment>
@@ -103,7 +135,7 @@ function CreateCategory({ showCatModal, isModalOpen }) {
       </StyledButton>
       {isModalOpen && (
         <StyledBackground>
-          <StyledModal className='new-category'>
+          <StyledModal onSubmit={handleAddCategory} className='new-category'>
             <StyledWrapper className='new-category__wrapper'>
               <StyledHeader className='wrapper__header'>
                 <h2>New Category</h2>
@@ -113,10 +145,16 @@ function CreateCategory({ showCatModal, isModalOpen }) {
               </StyledHeader>
               <StyledFormGroup className='wrapper__input'>
                 <label htmlFor='name'>NAME</label>
-                <StyledInput type='text' name='name' id='name' />
+                <StyledInput
+                  type='text'
+                  name='name'
+                  id='name'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
               </StyledFormGroup>
-              <ColorList colors={pallete} />
-              <IconList icons={icons} />
+              <ColorList colors={pallete} onColorPick={setColor} />
+              <IconList icons={icons} onIconPick={setIcon} />
               <Button
                 primary
                 type='submit'

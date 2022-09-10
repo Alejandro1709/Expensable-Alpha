@@ -14,7 +14,7 @@ const StyleList = styled.div`
   gap: 1rem;
 `;
 
-function IconList({ icons }) {
+function IconList({ icons, onIconPick }) {
   return (
     <StyledWrapper>
       ICONS
@@ -23,8 +23,10 @@ function IconList({ icons }) {
           <CircleIcon
             key={icon.name}
             Icon={icon.Icon}
+            icons={icons}
             size='md'
             color={colors.gray[600]}
+            onIconPick={onIconPick}
           />
         ))}
       </StyleList>

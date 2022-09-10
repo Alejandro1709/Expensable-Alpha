@@ -53,8 +53,6 @@ function Categories({ date, type }) {
     });
   }
 
-  function handleAddCategory(data) {}
-
   useEffect(() => {
     setLoading(true);
     setError(null);
@@ -83,7 +81,8 @@ function Categories({ date, type }) {
       <CategoriesList
         data={monthlyData}
         onAddTransaction={handleAddTransaction}
-        onAddCatrgory={handleAddCategory}
+        onAddCatrgory={setCategories}
+        categories={categories}
         date={date}
       />
     </Wrapper>

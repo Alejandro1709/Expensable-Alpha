@@ -30,10 +30,24 @@ export default function CircleIcon({
   size = 'md',
   color,
   Icon,
+  icons,
+  onIconPick,
   inverted = false,
 }) {
+  const handleSelectIcon = () => {
+    console.log(icons, Icon.name);
+    const foundIcon =
+      icons && icons.find((icon) => Icon.name === icon.Icon.name);
+    onIconPick(foundIcon.name);
+  };
+
   return (
-    <Wrapper size={size} color={color} inverted={inverted}>
+    <Wrapper
+      size={size}
+      color={color}
+      inverted={inverted}
+      onClick={() => handleSelectIcon()}
+    >
       <Icon size={custom.iconSize[size]} />
     </Wrapper>
   );
