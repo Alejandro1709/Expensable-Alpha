@@ -8,13 +8,13 @@ const StyledColors = styled.div`
   gap: 20px;
 `;
 
-function ColorList({ colors }) {
+function ColorList({ colors, onColorPick }) {
   return (
     <div>
       <p>COLORS</p>
       <StyledColors className='wrapper__colors'>
         {colors.map((color) => (
-          <Color key={color.name} color={color.color} />
+          <Color key={color.name} color={color} onColorPick={onColorPick} />
         ))}
       </StyledColors>
     </div>

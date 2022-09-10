@@ -14,8 +14,14 @@ const StyledButton = styled.button`
   }
 `;
 
-function Color({ color }) {
-  return <StyledButton color={color}></StyledButton>;
+function Color({ color, onColorPick }) {
+  return (
+    <StyledButton
+      color={color.color}
+      type='button'
+      onClick={() => onColorPick(color.name)}
+    ></StyledButton>
+  );
 }
 
 export default Color;

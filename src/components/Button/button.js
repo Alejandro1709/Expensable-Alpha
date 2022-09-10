@@ -119,6 +119,7 @@ Button.propTypes = {
 Button.defaultProps = {
   color: colors.gray[200],
   altColor: colors.gray[900],
+  type: 'primary',
 };
 
 export default Button;
