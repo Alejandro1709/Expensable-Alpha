@@ -1,8 +1,6 @@
 import React from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 import { format, getMonth, getYear } from 'date-fns';
-import { colors } from '../styles';
 import MonthPicker from '../components/MonthPicker';
 import styled from '@emotion/styled';
 import Categories from '../components/Categories/categories';
