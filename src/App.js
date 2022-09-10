@@ -5,6 +5,8 @@ import { GiTargeted } from 'react-icons/gi';
 import Container from './components/Container';
 import Sidebar from './components/SidebarNav';
 import Wrapper from './components/Wrapper';
+import CategoryPage from './pages/CategoryPage';
+import styled from '@emotion/styled';
 
 const initialCategories = [
   {
@@ -24,6 +26,10 @@ const initialCategories = [
   },
 ];
 
+const StyledMain = styled.main`
+  flex: 1;
+`;
+
 const handleClickItem = () => {};
 
 function App() {
@@ -34,15 +40,15 @@ function App() {
           initialNavigation={initialCategories}
           onItemClick={handleClickItem}
         />
-        <main className='main'>
+        <StyledMain>
           <Routes>
-            <Route path='/' element={<h1>Categories</h1>} />
-            <Route path='/categories' element={<h1>Categories</h1>} />
-            <Route path='/categories/:type' element={<h1>Categories</h1>} />
+            <Route path='/' element={<CategoryPage />} />
+            <Route path='/categories' element={<CategoryPage />} />
+            <Route path='/categories/:type' element={<CategoryPage />} />
             <Route path='/transactions' element={<h1>Transactions</h1>} />
             <Route path='/budgets' element={<h1>Budgets</h1>} />
           </Routes>
-        </main>
+        </StyledMain>
       </Container>
     </Wrapper>
   );
