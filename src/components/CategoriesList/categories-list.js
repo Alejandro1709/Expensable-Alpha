@@ -1,8 +1,16 @@
+import { useState } from 'react';
 import CategoryCard from '../CategoryCard';
 import PropTypes from 'prop-types';
 import { Wrapper } from './styles';
+import CreateCategory from '../Categories/create-category';
 
-function CategoriesList({ data, onAddTransaction, date }) {
+function CategoriesList({ data, onAddTransaction, onAddCatrgory, date }) {
+  const [showCatModal, setShowCatModal] = useState(false);
+
+  function handleShowCatModal() {
+    setShowCatModal(!showCatModal);
+  }
+
   return (
     <Wrapper>
       {data.map((category) => (
@@ -13,6 +21,11 @@ function CategoriesList({ data, onAddTransaction, date }) {
           date={date}
         />
       ))}
+      <CreateCategory
+        showCatModal={() => handleShowCatModal()}
+        isModalOpen={showCatModal}
+        onAddCatrgory={onAddCatrgory}
+      />
     </Wrapper>
   );
 }

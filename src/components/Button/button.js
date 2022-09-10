@@ -67,21 +67,23 @@ const StyledButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem ${({ rounded }) => (rounded ? '0.75rem' : '1rem')};
-  background-color: ${colors.gray[200]};
+  background-color: ${({ color }) => color};
+  color: ${({ altColor }) => altColor};
   border-radius: ${({ rounded }) => (rounded ? '999px' : '0.5rem')};
-  color: ${colors.gray[900]};
   border: none;
   ${typography.text.md}
   line-height: 1em;
   cursor: pointer;
   &:hover {
-    background-color: ${colors.gray[300]};
+    background-color: ${({ color }) =>
+      color ? colors.pink[700] : colors.gray[300]};
   }
   &:active {
-    background-color: ${colors.gray[400]};
+    background-color: ${({ color }) =>
+      color ? colors.pink[700] : colors.gray[300]};
   }
   &:focus {
-    outline: 2px solid ${colors.gray[400]};
+    outline: 2px solid ${({ color }) => (color ? '' : colors.gray[300])};
   }
   &:disabled {
     opacity: 60%;
@@ -103,13 +105,20 @@ function Button({ icon, children, ...props }) {
 
 Button.propTypes = {
   disabled: PropTypes.bool,
-  type: PropTypes.oneOf(['primary', 'secondary']),
+  type: PropTypes.oneOf(['primary', 'secondary', 'submit']),
   size: PropTypes.oneOf(['sm', 'lg']),
   icon: PropTypes.element,
   isFullWidth: PropTypes.bool,
   children: PropTypes.string,
+  color: PropTypes.string,
+  altColor: PropTypes.string,
   onClick: PropTypes.func,
   rounded: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  color: colors.gray[200],
+  altColor: colors.gray[900],
 };
 
 export default Button;
