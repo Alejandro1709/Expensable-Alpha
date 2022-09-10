@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { colors, typography } from '../../styles';
 import { getMonthlyData } from './utils';
+import apiFetch from '../../services/api-fetch';
 import CategoriesList from '../CategoriesList';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
@@ -40,7 +41,34 @@ function Categories({ date, type }) {
 
   const total = monthlyData.reduce((acc, cur) => acc + cur.amount, 0);
 
-  const handleAddTransaction = () => {};
+  function handleAddTransaction(categoryId, data) {
+    const newCategories = [...categories];
+    const category = newCategories.find((cat) => cat.id === categoryId);
+
+    apiFetch(`categories/${category.id}/transactions`, {
+      body: data,
+    }).then((trx) => {
+      category.transactions.push(trx);
+      setCategories(newCategories);
+    });
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    apiFetch('categories')
+      .then((data) => {
+        setCategories(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(error);
+      });
+  }, []);
+
+  if (loading) return <p>Loading categories...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <Wrapper>

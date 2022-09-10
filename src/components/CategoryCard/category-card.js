@@ -1,6 +1,6 @@
 import CircleIcon from '../CircleIcon';
 import * as Styled from './styles';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import Calculator from '../Calculator/calculator';
 import { useState } from 'react';
 import styled from '@emotion/styled';
