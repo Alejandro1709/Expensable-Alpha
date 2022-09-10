@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
 const initialCategories = [
   {
     name: 'Categories',
-    to: '/categories/expenses',
+    to: '/categories',
     icon: <BiCategory />,
   },
   {
@@ -47,6 +47,7 @@ function App() {
             <Route path='/categories/:type' element={<CategoryPage />} />
             <Route path='/transactions' element={<h1>Transactions</h1>} />
             <Route path='/budgets' element={<h1>Budgets</h1>} />
+            <Route path='*' element={<h1>Not Found</h1>} />
           </Routes>
         </StyledMain>
       </Container>
