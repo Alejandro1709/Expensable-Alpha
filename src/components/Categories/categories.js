@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { colors, typography } from '../../styles';
-import { getMonthlyData } from './utils';
 import { handleAddTransaction } from '../../services/category-services';
 import CategoriesContext from '../../context/categoriesContext';
 import CategoriesHeader from '../CategoriesHeader/categories-header';
