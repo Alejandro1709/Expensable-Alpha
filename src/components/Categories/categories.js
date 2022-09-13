@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { colors, typography } from '../../styles';
 import { getMonthlyData } from './utils';
-import {
-  handleAddTransaction,
-  handleGetCategories,
-} from '../../services/category-services';
+import { handleAddTransaction } from '../../services/category-services';
+import CategoriesContext from '../../context/categoriesContext';
 import CategoriesHeader from '../CategoriesHeader/categories-header';
 import CategoriesList from '../CategoriesList';
 import styled from '@emotion/styled';
@@ -36,12 +34,15 @@ const TotalLabel = styled.p`
   color: ${colors.gray[500]};
 `;
 function Categories({ date, type }) {
-  const [categories, setCategories] = useState([]);
-  const [filteredCategories, setFilteredCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const monthlyData = getMonthlyData(categories, date, type);
+  const {
+    categories,
+    setCategories,
+    loading,
+    error,
+    filteredCategories,
+    setFilteredCategories,
+    monthlyData,
+  } = useContext(CategoriesContext);
 
   const total = monthlyData.reduce((acc, cur) => acc + cur.amount, 0);
 
@@ -54,20 +55,6 @@ function Categories({ date, type }) {
       setCategories(newCategories);
     });
   }
-
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-    handleGetCategories()
-      .then((data) => {
-        setCategories(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        setError(error);
-      });
-  }, []);
 
   if (loading) return <p>Loading categories...</p>;
   if (error) return <p>Error: {error.message}</p>;
