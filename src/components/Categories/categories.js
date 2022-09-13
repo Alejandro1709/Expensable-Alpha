@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { colors, typography } from '../../styles';
 import { getMonthlyData } from './utils';
-import apiFetch from '../../services/api-fetch';
+import {
+  handleAddTransaction,
+  handleGetCategories,
+} from '../../services/category-services';
 import CategoriesHeader from '../CategoriesHeader/categories-header';
 import CategoriesList from '../CategoriesList';
 import styled from '@emotion/styled';
@@ -42,13 +45,11 @@ function Categories({ date, type }) {
 
   const total = monthlyData.reduce((acc, cur) => acc + cur.amount, 0);
 
-  function handleAddTransaction(categoryId, data) {
+  function onAddTransaction(categoryId, data) {
     const newCategories = [...categories];
     const category = newCategories.find((cat) => cat.id === categoryId);
 
-    apiFetch(`categories/${category.id}/transactions`, {
-      body: data,
-    }).then((trx) => {
+    handleAddTransaction(categories, categoryId, data).then((trx) => {
       category.transactions.push(trx);
       setCategories(newCategories);
     });
@@ -57,7 +58,7 @@ function Categories({ date, type }) {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    apiFetch('categories')
+    handleGetCategories()
       .then((data) => {
         setCategories(data);
         setLoading(false);
@@ -100,7 +101,7 @@ function Categories({ date, type }) {
       </TotalWrapper>
       <CategoriesList
         data={monthlyData}
-        onAddTransaction={handleAddTransaction}
+        onAddTransaction={onAddTransaction}
         onAddCatrgory={setCategories}
         categories={type === 'expense' ? categories : filteredCategories}
         date={date}
