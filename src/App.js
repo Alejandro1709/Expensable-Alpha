@@ -3,6 +3,8 @@ import Container from './components/Container';
 import Sidebar from './components/SidebarNav';
 import Wrapper from './components/Wrapper';
 import CategoryPage from './pages/CategoryPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import styled from '@emotion/styled';
 
 const StyledMain = styled.main`
@@ -16,6 +18,8 @@ function App() {
         <Sidebar />
         <StyledMain>
           <Routes>
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterPage />} />
             <Route path='/' element={<CategoryPage />} />
             <Route path='/categories' element={<CategoryPage />} />
             <Route path='/categories/:type' element={<CategoryPage />} />
