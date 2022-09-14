@@ -4,13 +4,7 @@ import PropTypes from 'prop-types';
 import { Wrapper } from './styles';
 import CreateCategory from '../Categories/create-category';
 
-function CategoriesList({
-  data,
-  onAddTransaction,
-  onAddCatrgory,
-  categories,
-  date,
-}) {
+function CategoriesList({ data, onAddTransaction, onAddCatrgory, date }) {
   const [showCatModal, setShowCatModal] = useState(false);
 
   function handleShowCatModal() {
@@ -31,7 +25,6 @@ function CategoriesList({
         showCatModal={() => handleShowCatModal()}
         isModalOpen={showCatModal}
         onAddCatrgory={onAddCatrgory}
-        categories={categories}
       />
     </Wrapper>
   );
