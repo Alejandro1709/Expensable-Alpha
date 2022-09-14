@@ -1,9 +1,7 @@
-import { useContext } from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import MonthPickerContext from '../../context/monthPickerContext';
+import styled from '@emotion/styled';
 import { colors } from '../../styles';
 import Button from '../Button';
-import styled from '@emotion/styled';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,8 +20,7 @@ const MonthContainer = styled(Button)`
   }
 `;
 
-function MonthPicker() {
-  const { label, onLeftClick, onRightClick } = useContext(MonthPickerContext);
+function MonthPicker({ onLeftClick, onRightClick, label = 'Label' }) {
   return (
     <Wrapper>
       <Button
