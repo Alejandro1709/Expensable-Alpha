@@ -1,18 +1,14 @@
-import { useState } from 'react';
+import { useAuth } from './context/authContext';
 import Wrapper from './components/Wrapper';
 import LoggedInRoutes from './routes/LoggedInRoutes';
 import LoggedOutRoutes from './routes/LoggedOutRoutes';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
 
   return (
     <Wrapper>
-      {user ? (
-        <LoggedInRoutes user={user} setUser={setUser} />
-      ) : (
-        <LoggedOutRoutes />
-      )}
+      {user ? <LoggedInRoutes user={user} /> : <LoggedOutRoutes />}
     </Wrapper>
   );
 }

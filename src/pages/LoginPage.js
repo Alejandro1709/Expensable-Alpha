@@ -1,10 +1,12 @@
-import React from 'react';
-import { colors } from '../styles/colors';
-import styled from '@emotion/styled';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { colors } from '../styles/colors';
+import { useAuth } from '../context/authContext';
+import styled from '@emotion/styled';
 
 const StyledLoginPage = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -68,11 +70,38 @@ const StyledButton = styled.button`
 `;
 
 function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { login } = useAuth();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    setLoading(true);
+
+    const credentials = {
+      email,
+      password,
+    };
+
+    login(credentials).catch((error) => setError(error.message));
+    setLoading(false);
+  };
+
   return (
     <StyledLoginPage>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       <StyledContainer>
         <h1>Login</h1>
-        <StyledForm>
+        <StyledForm onSubmit={handleSubmit}>
           <StyledGroup>
             <StyledLabel htmlFor='email'>Email</StyledLabel>
             <StyledInput
@@ -80,6 +109,8 @@ function LoginPage() {
               name='email'
               id='email'
               placeholder='email@example.com'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </StyledGroup>
           <StyledGroup>
@@ -89,6 +120,8 @@ function LoginPage() {
               name='password'
               id='password'
               placeholder='******'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </StyledGroup>
           <StyledButton type='submit'>Login</StyledButton>

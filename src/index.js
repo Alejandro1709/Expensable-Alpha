@@ -8,6 +8,7 @@ import { GiTargeted } from 'react-icons/gi';
 import { NavigationProvider } from './context/navigationContext';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { AuthProvider } from './context/authContext';
 
 const initialCategories = [
   {
@@ -38,7 +39,9 @@ root.render(
       <NavigationProvider
         value={{ categories: initialCategories, onClickItem: handleClickItem }}
       >
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </NavigationProvider>
     </BrowserRouter>
   </React.StrictMode>
