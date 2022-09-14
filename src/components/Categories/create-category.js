@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useContext } from 'react';
+import React, { useState, Fragment } from 'react';
 import {
   AiOutlineClose,
   AiOutlinePlus,
@@ -17,7 +17,6 @@ import styled from '@emotion/styled';
 import ColorList from '../ColorList/color-list';
 import IconList from '../IconList/icon-list';
 import apiFetch from '../../services/api-fetch';
-import CategoriesContext from '../../context/categoriesContext';
 
 const StyledButton = styled.button`
   display: flex;
@@ -75,7 +74,12 @@ const StyledInput = styled.input`
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
 `;
 
-function CreateCategory({ showCatModal, isModalOpen, onAddCatrgory }) {
+function CreateCategory({
+  showCatModal,
+  isModalOpen,
+  onAddCatrgory,
+  categories,
+}) {
   const pallete = [
     { color: '#EF4444', name: 'red' },
     { color: '#F97316', name: 'orange' },
@@ -101,8 +105,6 @@ function CreateCategory({ showCatModal, isModalOpen, onAddCatrgory }) {
   const [name, setName] = useState('');
   const [color, setColor] = useState('');
   const [icon, setIcon] = useState('');
-
-  const { categories } = useContext(CategoriesContext);
 
   const handleAddCategory = async (e) => {
     e.preventDefault();
