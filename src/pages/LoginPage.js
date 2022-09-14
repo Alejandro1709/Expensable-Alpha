@@ -97,7 +97,7 @@ function LoginPage() {
 
   return (
     <StyledLoginPage>
-      {loading && <p>Loading...</p>}
+      {loading && <p>Loading....</p>}
       {error && <p>{error}</p>}
       <StyledContainer>
         <h1>Login</h1>

@@ -6,6 +6,7 @@ import LoggedOutRoutes from './routes/LoggedOutRoutes';
 function App() {
   const { user } = useAuth();
 
+  // lol
   return (
     <Wrapper>
       {user ? <LoggedInRoutes user={user} /> : <LoggedOutRoutes />}
