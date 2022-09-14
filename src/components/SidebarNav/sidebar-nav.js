@@ -5,6 +5,9 @@ import SidebarNavItem from './sidebar-nav-item';
 import PropTypes, { arrayOf } from 'prop-types';
 import styled from '@emotion/styled';
 import { colors } from '../../styles';
+import { BiCategory } from 'react-icons/bi';
+import { BsReceiptCutoff } from 'react-icons/bs';
+import { GiTargeted } from 'react-icons/gi';
 
 const StyledLogo = styled.div`
   /* display: flex; */
@@ -74,8 +77,24 @@ const StyledMobileFooter = styled.div`
   }
 `;
 
-function SidebarNav({ initialNavigation }) {
-  const [navigation] = useState(initialNavigation);
+function SidebarNav() {
+  const [navigation] = useState([
+    {
+      name: 'Categories',
+      to: '/categories',
+      icon: <BiCategory />,
+    },
+    {
+      name: 'Transactions',
+      to: '/transactions',
+      icon: <BsReceiptCutoff />,
+    },
+    {
+      name: 'Budgets',
+      to: '/budgets',
+      icon: <GiTargeted />,
+    },
+  ]);
 
   return (
     <StyledNav>
