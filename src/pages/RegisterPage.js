@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { colors } from '../styles/colors';
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../context/authContext';
 
 const StyledLoginPage = styled.div`
   display: flex;
@@ -68,11 +69,39 @@ const StyledButton = styled.button`
 `;
 
 function RegisterPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { register } = useAuth();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!email || !password || !firstName || !lastName || !phone) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    setLoading(true);
+
+    const credentials = {
+      email,
+      password,
+    };
+
+    register(credentials).catch((error) => setError(error.message));
+    setLoading(false);
+  };
+
   return (
     <StyledLoginPage>
       <StyledContainer>
         <h1>Register</h1>
-        <StyledForm>
+        <StyledForm onSubmit={handleSubmit}>
           <StyledGroup>
             <StyledLabel htmlFor='email'>Email</StyledLabel>
             <StyledInput
@@ -80,6 +109,8 @@ function RegisterPage() {
               name='email'
               id='email'
               placeholder='email@example.com'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </StyledGroup>
           <StyledGroup>
@@ -89,6 +120,8 @@ function RegisterPage() {
               name='password'
               id='password'
               placeholder='******'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </StyledGroup>
           <StyledGroup>
@@ -98,6 +131,8 @@ function RegisterPage() {
               name='first_name'
               id='first_name'
               placeholder='John'
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
           </StyledGroup>
           <StyledGroup>
@@ -107,6 +142,8 @@ function RegisterPage() {
               name='last_name'
               id='last_name'
               placeholder='Doe'
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </StyledGroup>
           <StyledGroup>
@@ -116,6 +153,8 @@ function RegisterPage() {
               name='phone'
               id='phone'
               placeholder='987986889'
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </StyledGroup>
           <StyledButton type='submit'>Create Account</StyledButton>
