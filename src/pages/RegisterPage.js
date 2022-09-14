@@ -99,6 +99,8 @@ function RegisterPage() {
 
   return (
     <StyledLoginPage>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       <StyledContainer>
         <h1>Register</h1>
         <StyledForm onSubmit={handleSubmit}>
