@@ -121,7 +121,7 @@ function RegisterPage() {
               type='password'
               name='password'
               id='password'
-              placeholder='******'
+              placeholder='********'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
