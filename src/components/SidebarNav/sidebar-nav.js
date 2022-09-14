@@ -1,11 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { ReactComponent as Logo } from '../../images/logo.svg';
 import { FiLogOut } from 'react-icons/fi';
-import NavigationContext from '../../context/navigationContext';
-import { colors } from '../../styles';
 import SidebarNavItem from './sidebar-nav-item';
 import PropTypes, { arrayOf } from 'prop-types';
 import styled from '@emotion/styled';
+import { colors } from '../../styles';
 
 const StyledLogo = styled.div`
   /* display: flex; */
@@ -75,10 +74,8 @@ const StyledMobileFooter = styled.div`
   }
 `;
 
-function SidebarNav() {
-  const { categories } = useContext(NavigationContext);
-
-  const [navigation] = useState(categories);
+function SidebarNav({ initialNavigation }) {
+  const [navigation] = useState(initialNavigation);
 
   return (
     <StyledNav>
