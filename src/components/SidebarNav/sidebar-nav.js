@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { ReactComponent as Logo } from '../../images/logo.svg';
 import { FiLogOut } from 'react-icons/fi';
-import SidebarNavItem from './sidebar-nav-item';
-import PropTypes, { arrayOf } from 'prop-types';
-import styled from '@emotion/styled';
-import { colors } from '../../styles';
 import { BiCategory } from 'react-icons/bi';
 import { BsReceiptCutoff } from 'react-icons/bs';
 import { GiTargeted } from 'react-icons/gi';
+import { colors } from '../../styles';
+import { useAuth } from '../../context/authContext';
+import SidebarNavItem from './sidebar-nav-item';
+import styled from '@emotion/styled';
+import PropTypes, { arrayOf } from 'prop-types';
 
 const StyledLogo = styled.div`
   /* display: flex; */
@@ -77,7 +78,21 @@ const StyledMobileFooter = styled.div`
   }
 `;
 
+const StyledLogoutButton = styled.button`
+  border: none;
+  background-color: transparent;
+  color: ${colors.pink[400]};
+  cursor: pointer;
+  text-align: left;
+
+  &:hover {
+    color: ${colors.pink[500]};
+  }
+`;
+
 function SidebarNav() {
+  const { user, logout } = useAuth();
+
   const [navigation] = useState([
     {
       name: 'Categories',
@@ -110,10 +125,12 @@ function SidebarNav() {
       ))}
       <StyledFooter>
         <StyledActions>
-          <StyledCurrUser>Alejandro La Rosa</StyledCurrUser>
-          <StyledCurrUserEmail>alelarosa99@gmail.com</StyledCurrUserEmail>
+          <StyledCurrUser>
+            {user.first_name} {user.last_name}
+          </StyledCurrUser>
+          <StyledCurrUserEmail>{user.email}</StyledCurrUserEmail>
         </StyledActions>
-        <p>Logout</p>
+        <StyledLogoutButton onClick={logout}>Logout</StyledLogoutButton>
       </StyledFooter>
     </StyledNav>
   );
