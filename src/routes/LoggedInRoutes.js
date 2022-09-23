@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Sidebar from '../components/SidebarNav';
+import TransactionBar from '../components/TransactionBar/';
 import Container from '../components/Container';
 import CategoryPage from '../pages/CategoryPage';
 import styled from '@emotion/styled';
@@ -23,6 +24,7 @@ function LoggedInRoutes() {
           <Route path='*' element={<h1>Not Found</h1>} />
         </Routes>
       </StyledMain>
+      <TransactionBar />
     </Container>
   );
 }
