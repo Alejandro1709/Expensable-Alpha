@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { colors, typography } from '../../styles';
+import CategoriesContext from '../../context/categoriesContext';
 import { getMonthlyData } from './utils';
 import apiFetch from '../../services/api-fetch';
 import CategoriesList from '../CategoriesList';
@@ -64,10 +65,14 @@ const Plus = styled(AiOutlinePlusCircle)`
   font-size: 1.5rem;
 `;
 function Categories({ date, type }) {
-  const [categories, setCategories] = useState([]);
-  const [filteredCategories, setFilteredCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const {
+    categories,
+    setCategories,
+    filteredCategories,
+    setFilteredCategories,
+    loading,
+    error,
+  } = useContext(CategoriesContext);
 
   const monthlyData = getMonthlyData(categories, date, type);
 
@@ -84,20 +89,6 @@ function Categories({ date, type }) {
       setCategories(newCategories);
     });
   }
-
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-    apiFetch('categories')
-      .then((data) => {
-        setCategories(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        setError(error);
-      });
-  }, []);
 
   if (loading) return <p>Loading categories...</p>;
   if (error) return <p>Error: {error.message}</p>;
