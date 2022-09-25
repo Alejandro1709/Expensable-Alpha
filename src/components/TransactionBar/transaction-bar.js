@@ -1,4 +1,3 @@
-import React from 'react';
 import { BiFilterAlt } from 'react-icons/bi';
 import TransactionList from '../TransactionList/transaction-list';
 import styled from '@emotion/styled';
